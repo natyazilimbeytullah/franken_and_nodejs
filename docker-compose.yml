@@ -1,0 +1,39 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: laravel_frankenphp
+    restart: unless-stopped
+    working_dir: /var/www/html
+    volumes:
+      - ./Franken:/var/www/html
+      - C:\Docker_Other/Franken/php/php.ini:/usr/local/etc/php/conf.d/custom.ini
+      - C:\Docker_Other/Franken/docker/caddy/Caddyfile:/etc/caddy/Caddyfile
+    ports:
+      - "8585:80"
+    environment:
+      - SERVER_NAME=localhost
+      - CADDY_GLOBAL_OPTIONS=admin off
+    networks:
+      - laravel_network
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    depends_on:
+      - redis
+
+  redis:
+    image: redis:7-alpine
+    container_name: laravel_franken_redis
+    restart: unless-stopped
+    volumes:
+      - redis_data:/data
+    networks:
+      - laravel_network
+
+networks:
+  laravel_network:
+    driver: bridge
+
+volumes:
+  redis_data:
