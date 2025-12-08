@@ -9,3 +9,8 @@ services:
     ports:
       - "3000:3000"
     command: sh -c "npm install && npm run dev -- --host"
+    networks:
+      - laravel_network
+networks:
+  laravel_network:
+    driver: bridge
