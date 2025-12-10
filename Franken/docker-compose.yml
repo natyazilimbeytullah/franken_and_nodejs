@@ -6,15 +6,15 @@ services:
     container_name: laravel_frankenphp
     restart: unless-stopped
     working_dir: /var/www/html
+    command: php artisan octane:start --server=frankenphp --host=0.0.0.0 --port=8000 --workers=16 --watch
     volumes:
-      - /c/Docker_Other/Franken/laravel_container:/var/www/html
+      - /c/Docker_Other/Franken:/var/www/html
       - /c/Docker_Other/Franken/Docker/php/php.ini:/usr/local/etc/php/conf.d/custom.ini
-      - /c/Docker_Other/Franken/Docker/caddy/Caddyfile:/etc/caddy/Caddyfile
     ports:
-      - "8585:80"
+      - "8585:8000"
     environment:
       - SERVER_NAME=localhost
-      - CADDY_GLOBAL_OPTIONS=admin off
+      - OCTANE_SERVER=frankenphp
     networks:
       - laravel_network
     extra_hosts:

@@ -13,7 +13,7 @@ RUN apt-get update && apt-get install -y \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # PHP extension'larını yükle
-RUN docker-php-ext-install zip \
+RUN docker-php-ext-install zip pcntl \
     && pecl install redis \
     && docker-php-ext-enable redis
 
