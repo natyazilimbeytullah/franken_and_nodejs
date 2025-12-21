@@ -117,8 +117,14 @@ const onSubmit = async () => {
   try {
     // Geçerli token - exp: 1767225600 (1 Ocak 2026)
     // https://jwt.io/ üzerinden oluşturabilirsiniz
-    setToken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IlRlc3QgVXNlciIsImVtYWlsIjoiZXJwQGdtYWlsLmNvbSIsImV4cCI6MTc2NzIyNTYwMH0.QF4TA2S0YRrPHdGmxHXJB9LxEGHQYKWL_4Hj4VfY8-I")
-    setUser({ id: 1, email: form.value.email, name: "Test User" })
+    /*setToken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IlRlc3QgVXNlciIsImVtYWlsIjoiZXJwQGdtYWlsLmNvbSIsImV4cCI6MTc2NzIyNTYwMH0.QF4TA2S0YRrPHdGmxHXJB9LxEGHQYKWL_4Hj4VfY8-I")
+    setUser({ id: 1, email: form.value.email, name: "Test User" })*/
+
+    // Gerçek API çağrısı
+    const response = await $fetch<LoginResponse>('http://127.0.0.1/api/auth/login', {
+      method: 'POST',
+      body: form.value,
+    })
     router.push('/')
 
   } catch (e: unknown) {
