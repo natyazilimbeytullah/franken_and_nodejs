@@ -6,7 +6,7 @@ interface JwtPayload {
 
 export class JwtAuthController {
   private static instance: JwtAuthController
-  private tokenKey = 'auth_token'
+  private tokenKey = 'yxf7mXb2Yq3ZCvH6Mj59Cogn2i4dsY9QuicOKUlTy72WXpbC651P04coZXYpuxd1'
 
   static getInstance(): JwtAuthController {
     if (!JwtAuthController.instance) {

@@ -6,6 +6,8 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Tymon\JWTAuth\Facades\JWTAuth;
+use Tymon\JWTAuth\Exceptions\JWTException;
 
 class AuthController extends Controller
 {
@@ -30,11 +32,12 @@ class AuthController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        $token = $user->createToken('api-token')->plainTextToken;
+        $token = JWTAuth::fromUser($user);
 
         return response()->json([
             'message' => 'User registered successfully',
-            'token' => $token,
+            'access_token' => $token,
+            'token_type' => 'Bearer',
             'user' => $user
         ], 201);
     }
@@ -54,7 +57,7 @@ class AuthController extends Controller
             ], 401);
         }
 
-        $token = $user->createToken('api-token')->plainTextToken;
+        $token = JWTAuth::fromUser($user);
 
         return response()->json([
             'access_token' => $token,
@@ -70,8 +73,11 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
-        $request->user()->currentAccessToken()->delete();
-
-        return response()->json(['message' => 'Successfully logged out']);
+        try {
+            JWTAuth::invalidate(JWTAuth::getToken());
+            return response()->json(['message' => 'Successfully logged out']);
+        } catch (JWTException $e) {
+            return response()->json(['message' => 'Failed to logout'], 500);
+        }
     }
 }

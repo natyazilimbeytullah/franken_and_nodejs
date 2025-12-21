@@ -41,4 +41,4 @@ EXPOSE 80
 
 # FrankenPHP'yi başlat (foreground'da çalışması için "run" komutu kullanılıyor)
 # Caddyfile'ı açıkça belirtiyoruz
-CMD ["frankenphp", "run", "--config", "/etc/caddy/Caddyfile"]
+CMD ["php", "artisan", "octane:start", "--server=frankenphp", "--host=0.0.0.0", "--port=8000", "--workers=16"]

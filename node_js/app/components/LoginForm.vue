@@ -88,11 +88,15 @@ import IconField from 'primevue/iconfield'
 import InputIcon from 'primevue/inputicon'
 
 interface LoginResponse {
-  token: string
+  access_token: string
+  token_type: string
   user: {
     id: number
-    email: string
     name?: string
+    email: string
+    email_verified_at?: string | null
+    created_at?: string
+    updated_at?: string
   }
 }
 
@@ -100,7 +104,7 @@ const router = useRouter()
 const { setUser } = useAuth()
 const { setToken, requireGuest } = useJwtAuth()
 
-const form = ref({ email: 'erp@gmail.com', password: 'erp123' })
+const form = ref({ email: 'erp@gmail.com', password: 'password' })
 const loading = ref(false)
 const error = ref('')
 const showPassword = ref(false)
@@ -121,10 +125,16 @@ const onSubmit = async () => {
     setUser({ id: 1, email: form.value.email, name: "Test User" })*/
 
     // Gerçek API çağrısı
-    const response = await $fetch<LoginResponse>('http://127.0.0.1/api/auth/login', {
+    const response = await $fetch<LoginResponse>('http://127.0.0.1:8585/api/auth/login', {
       method: 'POST',
       body: form.value,
     })
+    if (!response || !response.access_token) {
+      throw new Error('Geçersiz yanıt alındı.')
+    }
+    console.log('Giriş başarılı:', response)
+    setToken(response.access_token)
+    setUser(response.user)
     router.push('/')
 
   } catch (e: unknown) {
