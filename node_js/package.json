@@ -1,5 +1,5 @@
 {
-  "name": "my-nuxt-app",
+  "name": "nuxt_template_v3",
   "type": "module",
   "private": true,
   "scripts": {
@@ -10,7 +10,12 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
-    "nuxt": "^4.2.1",
+    "@primevue/nuxt-module": "^4.5.3",
+    "@primevue/themes": "^4.5.3",
+    "nuxt": "^4.2.2",
+    "primeflex": "^4.0.0",
+    "primeicons": "^7.0.0",
+    "primevue": "^4.5.3",
     "vue": "^3.5.25",
     "vue-router": "^4.6.3"
   }
