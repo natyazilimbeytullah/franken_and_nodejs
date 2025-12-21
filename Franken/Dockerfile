@@ -1,19 +1,24 @@
 FROM dunglas/frankenphp:latest
 
-# Sistem paketlerini güncelle ve gerekli araçları yükle
+# Sistem paketleri + PostgreSQL için libpq-dev
 RUN apt-get update && apt-get install -y \
     git \
     curl \
+    unzip \
+    zip \
     libpng-dev \
     libonig-dev \
     libxml2-dev \
-    zip \
-    unzip \
     libzip-dev \
+    libpq-dev \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# PHP extension'larını yükle
-RUN docker-php-ext-install zip pcntl \
+# Gerekli PHP extension'ları
+RUN docker-php-ext-install \
+        zip \
+        pcntl \
+        pdo \
+        pdo_pgsql \
     && pecl install redis \
     && docker-php-ext-enable redis
 
