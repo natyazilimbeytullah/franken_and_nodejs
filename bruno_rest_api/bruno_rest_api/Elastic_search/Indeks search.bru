@@ -1,0 +1,20 @@
+meta {
+  name: Indeks search
+  type: http
+  seq: 2
+}
+
+get {
+  url: http://localhost:9200/_cat/indices?h=index
+  body: none
+  auth: inherit
+}
+
+params:query {
+  h: index
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

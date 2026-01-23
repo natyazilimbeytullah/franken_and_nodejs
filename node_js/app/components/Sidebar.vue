@@ -27,6 +27,7 @@
             :key="item.to" 
             class="nav-item"
             :class="{ active: isActive(item.to) }"
+            @click = "item.click"
           >
             <NuxtLink :to="item.to" class="nav-link" :title="item.label">
               <i :class="item.icon"></i>
@@ -98,6 +99,7 @@ const menuSections: MenuSection[] = [
       { label: 'Stok Yönetimi', icon: 'pi pi-box', to: '/customers' },
       { label: 'Müşteriler', icon: 'pi pi-users', to: '/customers' },
       { label: 'Login', icon: 'pi pi-sign-in', to: '/login' },
+      { label: 'Çıkış Yap', icon: 'pi pi-logout',to:"", click: logout },
     ]
   },
   {
@@ -112,10 +114,16 @@ const menuSections: MenuSection[] = [
     title: 'İK & Yönetim',
     items: [
       { label: 'Personel', icon: 'pi pi-id-card', to: '/customers' },
-      { label: 'Tedarikçiler', icon: 'pi pi-truck', to: '/customers' }
+      { label: 'Tedarikçiler', icon: 'pi pi-truck', to: '/customers' },
     ]
   }
 ]
+
+const logout=() => {
+  // Logout işlemleri burada yapılacak
+  alert("Çıkış yapıldı")
+  console.log('Çıkış yapıldı')
+}
 
 const isActive = (path: string) => {
   if (path === '/') {

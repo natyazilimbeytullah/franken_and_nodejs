@@ -1,0 +1,30 @@
+meta {
+  name: Indeks List
+  type: http
+  seq: 1
+}
+
+get {
+  url: http://localhost:9200/nat_commerce_b2b_gundogmus_1/_search?pretty=true
+  body: json
+  auth: inherit
+}
+
+params:query {
+  pretty: true
+}
+
+body:json {
+  {
+    "query": {
+      "match": {
+        "stock_code": "APOLLO 1"
+      }
+    }
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

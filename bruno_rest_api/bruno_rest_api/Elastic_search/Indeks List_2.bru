@@ -1,0 +1,113 @@
+meta {
+  name: Indeks List_2
+  type: http
+  seq: 4
+}
+
+get {
+  url: http://localhost:9200/nat_commerce_b2b_mutaf_1/_search?pretty=true
+  body: json
+  auth: inherit
+}
+
+params:query {
+  pretty: true
+}
+
+body:json {
+  {
+    "query": {
+      "bool": {
+        "filter": [
+          {
+            "term": {
+              "stock_is_active": 1
+            }
+          },
+          {
+            "terms": {
+              "stock_category_1": [
+                "01"
+              ]
+            }
+          },
+          {
+            "terms": {
+              "depot_list": [
+                "1",
+                "12",
+                "6",
+                "7",
+                "8",
+                "9"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "size": 25,
+    "aggs": {
+      "all_products": {
+        "global": {},
+        "aggs": {
+          "filtered_brands": {
+            "filter": {
+              "bool": {
+                "filter": [
+                  {
+                    "term": {
+                      "stock_is_active": 1
+                    }
+                  },
+                  {
+                    "terms": {
+                      "stock_category_1": [
+                        "01"
+                      ]
+                    }
+                  },
+                  {
+                    "terms": {
+                      "depot_list": [
+                        "1",
+                        "12",
+                        "6",
+                        "7",
+                        "8",
+                        "9"
+                      ]
+                    }
+                  }
+                ]
+              }
+            },
+            "aggs": {
+              "brands": {
+                "terms": {
+                  "field": "stock_brand_code",
+                  "size": 10000
+                },
+                "aggs": {
+                  "brand_name": {
+                    "top_hits": {
+                      "size": 1,
+                      "_source": [
+                        "stock_brand_name"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
