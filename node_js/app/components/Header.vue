@@ -18,15 +18,6 @@
         <i class="pi pi-search"></i>
         <input v-model="searchQuery" type="text" placeholder="Ara..." @keyup.enter="handleSearch" />
       </div>
-      <div class="header-actions">
-        <Button icon="pi pi-bell" text rounded class="action-btn">
-          <Badge value="5" severity="danger" class="action-badge" />
-        </Button>
-        <Button icon="pi pi-envelope" text rounded class="action-btn">
-          <Badge value="3" severity="info" class="action-badge" />
-        </Button>
-        <Button icon="pi pi-cog" text rounded class="action-btn" />
-      </div>
     </div>
   </header>
 </template>
