@@ -127,7 +127,7 @@
             </div>
           </template>
 
-          <Column v-if="isDesktop" selectionMode="multiple" headerStyle="width: 3rem"></Column>
+          <!-- <Column v-if="isDesktop" selectionMode="multiple" headerStyle="width: 3rem"></Column> -->
 
           <Column field="name" header="Müşteri" sortable>
             <template #body="{ data }">
