@@ -1,18 +1,20 @@
 <template>
-  <div class="flex flex-column gap-3">
+  <div class="flex flex-column gap-3 page-container">
     <!-- Page Header -->
     <div class="flex flex-wrap justify-content-between align-items-center gap-2">
-      <p class="text-color-secondary m-0">Tüm müşterilerinizi buradan yönetin</p>
-      <div class="flex gap-2">
-        <Button label="Dışa Aktar" icon="pi pi-download" outlined />
-        <Button label="Yeni Müşteri" icon="pi pi-plus" />
+      <p class="text-color-secondary m-0 hidden md:block">Tüm müşterilerinizi buradan yönetin</p>
+      <div class="flex gap-2 w-full md:w-auto justify-content-end">
+        <Button :label="isMobile ? '' : 'Dışa Aktar'" icon="pi pi-download" outlined :class="{'p-button-sm': isMobile}" />
+        <NuxtLink to="/customers/add">
+          <Button :label="isMobile ? '' : 'Yeni Müşteri'" icon="pi pi-plus" :class="{'p-button-sm': isMobile}" />
+        </NuxtLink>
       </div>
     </div>
 
     <!-- Filters Card -->
-    <Card>
+    <Card class="filter-card">
       <template #content>
-        <div class="grid">
+        <div class="grid overflow-hidden">
           <div class="col-12 md:col-6 lg:col-2 flex flex-column gap-2">
             <label class="text-xs font-semibold text-color-secondary uppercase">Ara</label>
             <IconField>
@@ -66,8 +68,8 @@
             />
           </div>
           <div class="col-12 lg:col-2 flex align-items-end gap-2">
-            <Button label="Filtrele" icon="pi pi-filter" @click="applyFilters" class="flex-1" />
-            <Button label="Temizle" icon="pi pi-times" outlined severity="secondary" @click="clearFilters" class="flex-1" />
+            <Button :label="isMobile ? '' : 'Filtrele'" icon="pi pi-filter" @click="applyFilters" class="flex-1" />
+            <Button :label="isMobile ? '' : 'Temizle'" icon="pi pi-times" outlined severity="secondary" @click="clearFilters" :class="{'flex-1': !isMobile, 'hidden': isMobile}" />
           </div>
         </div>
       </template>
@@ -115,6 +117,7 @@
           :filterDisplay="isMobile ? 'row' : 'menu'"
           :selectionMode="isMobile ? undefined : 'multiple'"
           scrollable
+          scrollWidth="100%"
           :scrollHeight="isMobile ? undefined : 'flex'"
         >
           <template #empty>
@@ -196,7 +199,7 @@
             </template>
           </Column>
 
-          <Column v-if="isDesktop" field="totalSpent" header="Harcama" sortable>
+          <Column v-if="isLargeDesktop" field="totalSpent" header="Harcama" sortable>
             <template #body="{ data }">
               <span class="spent-cell">₺{{ data.totalSpent.toLocaleString('tr-TR') }}</span>
             </template>
@@ -347,91 +350,3 @@ const {
   deleteCustomer
 } = useCustomers()
 </script>
-
-<style scoped>
-/* DataTable Stilleri */
-.customers-table :deep(.p-datatable-thead > tr > th) {
-  background: var(--surface-50);
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-.customers-table :deep(.p-datatable-tbody > tr:hover) {
-  background: var(--surface-50);
-}
-
-/* Tablo Hücre Stilleri */
-.customer-cell {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-}
-
-.customer-details {
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
-}
-
-.customer-name {
-  font-weight: 600;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.customer-email {
-  font-size: 0.75rem;
-  color: var(--text-color-secondary);
-}
-
-.city-cell {
-  display: flex;
-  align-items: center;
-  gap: 0.375rem;
-  color: var(--text-color-secondary);
-}
-
-.phone-cell {
-  font-family: monospace;
-  font-size: 0.85rem;
-  color: var(--text-color-secondary);
-}
-
-.orders-count {
-  font-weight: 600;
-  color: var(--primary-color);
-}
-
-.spent-cell {
-  font-weight: 600;
-  color: var(--green-500);
-}
-
-.date-cell {
-  color: var(--text-color-secondary);
-  font-size: 0.85rem;
-}
-
-.action-buttons {
-  display: flex;
-  gap: 0.25rem;
-}
-
-/* Empty State */
-.empty-state {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 3rem;
-  color: var(--text-color-secondary);
-}
-
-.empty-state i {
-  font-size: 3rem;
-  margin-bottom: 1rem;
-}
-</style>
-
-

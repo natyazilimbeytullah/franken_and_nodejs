@@ -1,0 +1,46 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.3.0 Chrome/140.0.7339.249 Electron/38.7.2 Safari/537.36" version="29.3.0">
+  <diagram name="Sayfa -1" id="o3OU1LLDec90MOLMS--u">
+    <mxGraphModel dx="1489" dy="2063" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="iCIH0MlErL9Hwr2XZbz4-2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="PROMPT MENÜ (prompt_menu&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;)&lt;/span&gt;" vertex="1">
+          <mxGeometry height="130" width="170" x="37.5" y="310" as="geometry" />
+        </mxCell>
+        <mxCell id="iCIH0MlErL9Hwr2XZbz4-13" edge="1" parent="1" source="iCIH0MlErL9Hwr2XZbz4-3" style="edgeStyle=none;curved=1;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontSize=12;startSize=8;endSize=8;" target="iCIH0MlErL9Hwr2XZbz4-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="iCIH0MlErL9Hwr2XZbz4-3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="PROMPT İÇERİK (prompt_content)" vertex="1">
+          <mxGeometry height="100" width="165" x="40" y="140" as="geometry" />
+        </mxCell>
+        <mxCell id="iCIH0MlErL9Hwr2XZbz4-4" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="PROMPT DEĞİŞKEN TANIMLAMALARI ( prompt_definition_tags )" vertex="1">
+          <mxGeometry height="110" width="170" x="350" y="-260" as="geometry" />
+        </mxCell>
+        <mxCell id="iCIH0MlErL9Hwr2XZbz4-15" edge="1" parent="1" source="iCIH0MlErL9Hwr2XZbz4-5" style="edgeStyle=none;curved=1;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontSize=12;startSize=8;endSize=8;" target="iCIH0MlErL9Hwr2XZbz4-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="iCIH0MlErL9Hwr2XZbz4-5" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="PROMPT TİPLERİ (prompt_definition_type)" vertex="1">
+          <mxGeometry height="130" width="180" x="32.5" y="-260" as="geometry" />
+        </mxCell>
+        <mxCell id="iCIH0MlErL9Hwr2XZbz4-6" edge="1" parent="1" source="iCIH0MlErL9Hwr2XZbz4-5" style="edgeStyle=none;curved=1;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;fontSize=12;startSize=8;endSize=8;" target="iCIH0MlErL9Hwr2XZbz4-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="EdiC0jieEx0QQR_WUP-W-1" edge="1" parent="1" source="iCIH0MlErL9Hwr2XZbz4-4" style="edgeStyle=none;curved=1;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontSize=12;startSize=8;endSize=8;" target="iCIH0MlErL9Hwr2XZbz4-1" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="544" y="-100" as="sourcePoint" />
+            <mxPoint x="615" y="315" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EdiC0jieEx0QQR_WUP-W-2" edge="1" parent="1" source="iCIH0MlErL9Hwr2XZbz4-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.75;entryY=0;entryDx=0;entryDy=0;" target="iCIH0MlErL9Hwr2XZbz4-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="iCIH0MlErL9Hwr2XZbz4-1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="PROMPT İÇERİK DEĞİŞKENLERİ &lt;br&gt;(prompt_content_tags)" vertex="1">
+          <mxGeometry height="120" width="172.5" x="350" y="-40" as="geometry" />
+        </mxCell>
+        <mxCell id="EdiC0jieEx0QQR_WUP-W-4" edge="1" parent="1" source="iCIH0MlErL9Hwr2XZbz4-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.25;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" target="iCIH0MlErL9Hwr2XZbz4-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

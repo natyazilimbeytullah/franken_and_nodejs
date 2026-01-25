@@ -63,7 +63,7 @@ body {
 }
 
 body.app-loaded {
-  overflow: visible !important;
+  overflow: auto !important;
   overflow-x: hidden !important;
 }
 

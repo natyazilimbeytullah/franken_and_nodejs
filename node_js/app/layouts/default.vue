@@ -32,7 +32,7 @@ const toggleSidebar = () => {
 // LocalStorage'dan sidebar durumunu al ve auth kontrolü yap
 onMounted(() => {
   // Auth kontrolü - token yoksa login'e yönlendir
-  requireAuth()
+  //requireAuth()
 
   if (import.meta.client) {
     const saved = localStorage.getItem('sidebar-collapsed')
@@ -58,7 +58,8 @@ watch(sidebarCollapsed, (value) => {
 
 .layout-content {
   flex: 1;
-  margin-left: 260px;
+  margin-left: 230px;
+  max-width: calc(100vw - 230px);
   display: flex;
   flex-direction: column;
   transition: margin-left 0.3s ease;
@@ -78,10 +79,16 @@ watch(sidebarCollapsed, (value) => {
 @media (max-width: 768px) {
   .layout-content {
     margin-left: 80px;
+    max-width: calc(100vw - 80px);
+    width: calc(100% - 80px);
+    overflow-x: hidden;
   }
 
   .main-content {
     padding: 1rem;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
   }
 }
 </style>

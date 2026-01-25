@@ -10,11 +10,27 @@
           <span v-if="!collapsed" class="logo-text">ERP</span>
         </Transition>
       </div>
-      <button class="toggle-btn" @click="$emit('toggle')" :title="collapsed ? 'Menüyü Aç' : 'Menüyü Kapat'">
+      <!-- <button class="toggle-btn" @click="$emit('toggle')" :title="collapsed ? 'Menüyü Aç' : 'Menüyü Kapat'">
         <i :class="collapsed ? 'pi pi-chevron-right' : 'pi pi-chevron-left'"></i>
-      </button>
+      </button> -->
     </div>
     
+    <!-- Footer -->
+    <div class="sidebar-footer">
+      <div class="user-profile" @click="toggleUserMenu" ref="userProfileRef">
+        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User" />
+        <Transition name="fade">
+          <div v-if="!collapsed" class="user-info">
+            <span class="user-name">Ahmet Yılmaz</span>
+            <span class="user-role">Yönetici</span>
+          </div>
+        </Transition>
+        <Transition name="fade">
+          <i v-if="!collapsed" class="pi pi-chevron-up" :class="{ 'rotate-180': !userMenuVisible }"></i>
+        </Transition>
+      </div>
+      <Menu ref="userMenu" :model="userMenuItems" :popup="true" class="user-menu" />
+    </div>
     <!-- Navigation -->
     <nav class="sidebar-nav">
       <div v-for="section in menuSections" :key="section.title" class="nav-section">
@@ -27,7 +43,6 @@
             :key="item.to" 
             class="nav-item"
             :class="{ active: isActive(item.to) }"
-            @click = "item.click"
           >
             <NuxtLink :to="item.to" class="nav-link" :title="item.label">
               <i :class="item.icon"></i>
@@ -45,24 +60,6 @@
       </div>
     </nav>
     
-    <!-- Footer -->
-    <div class="sidebar-footer">
-      <NuxtLink to="/settings" class="nav-link" title="Ayarlar">
-        <i class="pi pi-cog"></i>
-        <Transition name="fade">
-          <span v-if="!collapsed">Ayarlar</span>
-        </Transition>
-      </NuxtLink>
-      <div class="user-profile">
-        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User" />
-        <Transition name="fade">
-          <div v-if="!collapsed" class="user-info">
-            <span class="user-name">Ahmet Yılmaz</span>
-            <span class="user-role">Yönetici</span>
-          </div>
-        </Transition>
-      </div>
-    </div>
   </aside>
 </template>
 
@@ -96,10 +93,9 @@ const menuSections: MenuSection[] = [
     items: [
       { label: 'Dashboard', icon: 'pi pi-home', to: '/' },
       { label: 'Siparişler', icon: 'pi pi-shopping-cart', to: '/customers', badge: 12 },
-      { label: 'Stok Yönetimi', icon: 'pi pi-box', to: '/customers' },
+      { label: 'Stok Yönetimi', icon: 'pi pi-box', to: '/stock' },
       { label: 'Müşteriler', icon: 'pi pi-users', to: '/customers' },
       { label: 'Login', icon: 'pi pi-sign-in', to: '/login' },
-      { label: 'Çıkış Yap', icon: 'pi pi-logout',to:"", click: logout },
     ]
   },
   {
@@ -114,16 +110,16 @@ const menuSections: MenuSection[] = [
     title: 'İK & Yönetim',
     items: [
       { label: 'Personel', icon: 'pi pi-id-card', to: '/customers' },
-      { label: 'Tedarikçiler', icon: 'pi pi-truck', to: '/customers' },
+      { label: 'Tedarikçiler', icon: 'pi pi-truck', to: '/customers' }
+    ]
+  },
+  {
+    title: 'Ayarlar',
+    items: [
+      { label: 'Ayarlar', icon: 'pi pi-cog', to: '/settings' }
     ]
   }
 ]
-
-const logout=() => {
-  // Logout işlemleri burada yapılacak
-  alert("Çıkış yapıldı")
-  console.log('Çıkış yapıldı')
-}
 
 const isActive = (path: string) => {
   if (path === '/') {
@@ -131,11 +127,51 @@ const isActive = (path: string) => {
   }
   return route.path.startsWith(path)
 }
+
+// User Menu
+const userMenu = ref()
+const userProfileRef = ref()
+const userMenuVisible = ref(false)
+const router = useRouter()
+
+const userMenuItems = ref([
+  {
+    label: 'Profil',
+    icon: 'pi pi-user',
+    command: () => {
+      router.push('/profile')
+    }
+  },
+  {
+    label: 'Hesap Ayarları',
+    icon: 'pi pi-cog',
+    command: () => {
+      router.push('/settings')
+    }
+  },
+  {
+    separator: true
+  },
+  {
+    label: 'Çıkış Yap',
+    icon: 'pi pi-sign-out',
+    command: () => {
+      // Çıkış işlemi burada yapılacak
+      console.log('Çıkış yapılıyor...')
+      router.push('/login')
+    }
+  }
+])
+
+const toggleUserMenu = (event: Event) => {
+  userMenu.value.toggle(event)
+  userMenuVisible.value = !userMenuVisible.value
+}
 </script>
 
 <style scoped>
 .sidebar {
-  width: 260px;
+  width: 230px;
   background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
   display: flex;
   flex-direction: column;
@@ -299,7 +335,7 @@ const isActive = (path: string) => {
 }
 
 .nav-item {
-  padding: 0;
+  padding: 1px;
 }
 
 .nav-link {
@@ -387,6 +423,18 @@ const isActive = (path: string) => {
   border-radius: 12px;
   transition: background-color 0.2s ease;
   cursor: pointer;
+  position: relative;
+}
+
+.user-profile i.pi-chevron-up {
+  margin-left: auto;
+  font-size: 0.75rem;
+  color: #94a3b8;
+  transition: transform 0.3s ease;
+}
+
+.user-profile i.pi-chevron-up.rotate-180 {
+  transform: rotate(180deg);
 }
 
 .user-profile:hover {

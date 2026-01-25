@@ -43,8 +43,8 @@ const pageTitle = computed(() => {
   const titles: Record<string, string> = {
     '/': 'Kontrol Paneli',
     '/customers': 'Müşteriler',
+    '/stock': 'Stok Yönetimi',
     '/orders': 'Siparişler',
-    '/inventory': 'Stok Yönetimi',
     '/finance': 'Gelir/Gider',
     '/invoices': 'Faturalar',
     '/reports': 'Raporlar',
