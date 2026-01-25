@@ -1,12 +1,11 @@
-FROM php:8.4-fpm
+FROM dunglas/frankenphp:latest
 
-# Sistem paketleri + Nginx
+# Sistem paketleri + PostgreSQL için libpq-dev
 RUN apt-get update && apt-get install -y \
     git \
     curl \
     unzip \
     zip \
-    nginx \
     libpng-dev \
     libonig-dev \
     libxml2-dev \
@@ -26,13 +25,10 @@ RUN docker-php-ext-install \
 # Composer'ı yükle
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Nginx yapılandırmasını kopyala
-COPY nginx.conf /etc/nginx/sites-available/default
-
 # Çalışma dizinini ayarla
 WORKDIR /var/www/html
 
-# Uygulama dosyalarını kopyala
+# Uygulama dosyalarını kopyala (varsa)
 COPY . /var/www/html
 
 # Entrypoint script'ini kopyala ve çalıştırılabilir yap
@@ -45,8 +41,9 @@ RUN chown -R www-data:www-data /var/www/html || true \
     && chmod -R 755 /var/www/html/bootstrap/cache 2>/dev/null || true \
     && chmod +x /var/www/html/artisan 2>/dev/null || true
 
-# Port'u expose et
+# Port'u expose et (Caddyfile'da :80 kullanılıyor)
 EXPOSE 80
 
-# Entrypoint
-CMD ["docker-entrypoint.sh"]
+# FrankenPHP'yi başlat (foreground'da çalışması için "run" komutu kullanılıyor)
+# Caddyfile'ı açıkça belirtiyoruz
+CMD ["php", "artisan", "octane:start", "--server=frankenphp", "--host=0.0.0.0", "--port=8000", "--workers=16"]

@@ -119,6 +119,7 @@
                     </label>
                     <Select 
                       id="brand"
+                      filter 
                       v-model="product.brand" 
                       :options="brandOptions" 
                       placeholder="Marka Seçin" 
@@ -242,6 +243,7 @@
                     id="status"
                     v-model="product.status" 
                     :options="statusOptions" 
+                    filter 
                     optionLabel="label"
                     optionValue="value"
                     placeholder="Durum Seçin" 

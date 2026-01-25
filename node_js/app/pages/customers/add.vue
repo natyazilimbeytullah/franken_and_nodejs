@@ -167,6 +167,7 @@
                   <label for="status" class="font-semibold text-color text-sm">Müşteri Durumu</label>
                   <Select 
                     id="status"
+                    filter 
                     v-model="customer.status" 
                     :options="statusOptions" 
                     optionLabel="label"
@@ -179,6 +180,7 @@
                   <label for="segment" class="font-semibold text-color text-sm">Müşteri Segmenti</label>
                   <Select 
                     id="segment"
+                    filter 
                     v-model="customer.segment" 
                     :options="segmentOptions" 
                     optionLabel="label"
@@ -211,12 +213,12 @@
                   <label for="city" class="font-semibold text-color text-sm">Şehir</label>
                   <Select 
                     id="city"
+                    filter 
                     v-model="customer.city" 
                     :options="cityOptions" 
                     placeholder="Şehir Seçin" 
                     class="w-full"
                     showClear
-                    filter
                   />
                 </div>
                 <div class="flex flex-column gap-2">

@@ -7,10 +7,10 @@ services:
     restart: unless-stopped
     working_dir: /var/www/html
     volumes:
-      - /c/Docker_Other/Franken:/var/www/html
-      - /c/Docker_Other/Franken/Docker/php/php.ini:/usr/local/etc/php/conf.d/custom.ini
+      - /c/Docker_Other/Franken/Franken:/var/www/html
+      - /c/Docker_Other/Franken/Franken/Docker/php/php.ini:/usr/local/etc/php/conf.d/custom.ini
     ports:
-      - "8585:8000"
+      - "8585:80"
     environment:
       - SERVER_NAME=localhost
       - OCTANE_SERVER=frankenphp
