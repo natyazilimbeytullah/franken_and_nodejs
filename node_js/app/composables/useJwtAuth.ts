@@ -1,3 +1,5 @@
+import type { Ref } from 'vue'
+
 interface JwtPayload {
   exp?: number
   iat?: number
@@ -7,6 +9,7 @@ interface JwtPayload {
 export class JwtAuthController {
   private static instance: JwtAuthController
   private tokenKey = 'yxf7mXb2Yq3ZCvH6Mj59Cogn2i4dsY9QuicOKUlTy72WXpbC651P04coZXYpuxd1'
+  private tokenCookie: Ref<string | null> | null = null
 
   static getInstance(): JwtAuthController {
     if (!JwtAuthController.instance) {
@@ -15,30 +18,35 @@ export class JwtAuthController {
     return JwtAuthController.instance
   }
 
-  getToken(): string | null {
-    if (import.meta.client) {
-      return localStorage.getItem(this.tokenKey)
+  private getTokenCookie() {
+    if (!this.tokenCookie) {
+      this.tokenCookie = useCookie(this.tokenKey, {
+        maxAge: 60 * 60 * 24 * 7, // 7 gün
+        sameSite: 'strict',
+        secure: true,
+        default: () => null as string | null
+      })
     }
-    return null
+    return this.tokenCookie
+  }
+
+  getToken(): string | null {
+    return this.getTokenCookie().value ?? null
   }
 
   setToken(token: string): void {
-    if (import.meta.client) {
-      localStorage.setItem(this.tokenKey, token)
-    }
+    this.getTokenCookie().value = token
   }
 
   removeToken(): void {
-    if (import.meta.client) {
-      localStorage.removeItem(this.tokenKey)
-    }
+    this.getTokenCookie().value = null
   }
 
   decodeToken(token: string): JwtPayload | null {
     try {
       const base64Url = token.split('.')[1]
       if (!base64Url) return null
-      
+
       const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/')
       const jsonPayload = decodeURIComponent(
         atob(base64)
@@ -55,7 +63,7 @@ export class JwtAuthController {
   isTokenExpired(token: string): boolean {
     const payload = this.decodeToken(token)
     if (!payload || !payload.exp) return true
-    
+
     const currentTime = Math.floor(Date.now() / 1000)
     return payload.exp < currentTime
   }
@@ -68,7 +76,7 @@ export class JwtAuthController {
 
   checkAuthAndRedirect(): void {
     const router = useRouter()
-    
+
     if (this.isAuthenticated()) {
       router.push('/')
     } else {
@@ -79,7 +87,7 @@ export class JwtAuthController {
 
   requireAuth(): boolean {
     const router = useRouter()
-    
+
     if (!this.isAuthenticated()) {
       this.removeToken()
       router.push('/login')
@@ -90,7 +98,7 @@ export class JwtAuthController {
 
   requireGuest(): boolean {
     const router = useRouter()
-    
+
     if (this.isAuthenticated()) {
       router.push('/dashboard')
       return false

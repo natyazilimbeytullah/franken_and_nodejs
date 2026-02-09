@@ -1,0 +1,86 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.3.0 Chrome/140.0.7339.249 Electron/38.7.2 Safari/537.36" version="29.3.0">
+  <diagram name="Sayfa -1" id="NBXIZoGnmgKK9vk1h1nU">
+    <mxGraphModel dx="1366" dy="834" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="TQnA6eoyemEIMhonHOQR-1" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Veritabanı&lt;div&gt;--&lt;/div&gt;&lt;div&gt;PostgreSQL + PG Vektör&lt;/div&gt;" vertex="1">
+          <mxGeometry height="70" width="180" x="200" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="TQnA6eoyemEIMhonHOQR-2" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="LLM&lt;div&gt;--&lt;/div&gt;&lt;div&gt;Qwen2.5-8B&lt;/div&gt;" vertex="1">
+          <mxGeometry height="70" width="180" x="400" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="TQnA6eoyemEIMhonHOQR-3" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Agent Framework&lt;div&gt;--&lt;/div&gt;&lt;div&gt;Langraph + Langchain&amp;nbsp;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="70" width="180" x="610" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="TQnA6eoyemEIMhonHOQR-15" edge="1" parent="1" source="TQnA6eoyemEIMhonHOQR-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="TQnA6eoyemEIMhonHOQR-12" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="TQnA6eoyemEIMhonHOQR-18" edge="1" parent="1" source="TQnA6eoyemEIMhonHOQR-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="TQnA6eoyemEIMhonHOQR-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="TQnA6eoyemEIMhonHOQR-4" parent="1" style="rhombus;whiteSpace=wrap;html=1;" value="Karar Verici" vertex="1">
+          <mxGeometry height="80" width="80" x="210" y="330" as="geometry" />
+        </mxCell>
+        <mxCell id="TQnA6eoyemEIMhonHOQR-24" edge="1" parent="1" source="TQnA6eoyemEIMhonHOQR-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="TQnA6eoyemEIMhonHOQR-16">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="825" y="730" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="TQnA6eoyemEIMhonHOQR-5" parent="1" style="rhombus;whiteSpace=wrap;html=1;" value="Mantık Ajanı" vertex="1">
+          <mxGeometry height="90" width="110" x="770" y="220" as="geometry" />
+        </mxCell>
+        <mxCell id="TQnA6eoyemEIMhonHOQR-35" edge="1" parent="1" source="TQnA6eoyemEIMhonHOQR-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="TQnA6eoyemEIMhonHOQR-34">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="TQnA6eoyemEIMhonHOQR-7" parent="1" style="rhombus;whiteSpace=wrap;html=1;" value="Veritabanı Ajanı&lt;br&gt;(Sorguya ait SQL hazırlayan ajan)" vertex="1">
+          <mxGeometry height="130" width="180" x="430" y="390" as="geometry" />
+        </mxCell>
+        <mxCell id="TQnA6eoyemEIMhonHOQR-14" edge="1" parent="1" source="TQnA6eoyemEIMhonHOQR-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="TQnA6eoyemEIMhonHOQR-4" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="TQnA6eoyemEIMhonHOQR-12" parent="1" style="rhombus;whiteSpace=wrap;html=1;" value="Kullanıcı" vertex="1">
+          <mxGeometry height="80" width="80" x="80" y="330" as="geometry" />
+        </mxCell>
+        <mxCell id="TQnA6eoyemEIMhonHOQR-25" edge="1" parent="1" source="TQnA6eoyemEIMhonHOQR-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" target="TQnA6eoyemEIMhonHOQR-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="TQnA6eoyemEIMhonHOQR-29" edge="1" parent="1" source="TQnA6eoyemEIMhonHOQR-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="TQnA6eoyemEIMhonHOQR-28">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="TQnA6eoyemEIMhonHOQR-32" edge="1" parent="1" source="TQnA6eoyemEIMhonHOQR-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="TQnA6eoyemEIMhonHOQR-31">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="TQnA6eoyemEIMhonHOQR-16" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="Güvenlik Ajanı" vertex="1">
+          <mxGeometry height="60" width="120" x="670" y="700" as="geometry" />
+        </mxCell>
+        <mxCell id="TQnA6eoyemEIMhonHOQR-21" edge="1" parent="1" source="TQnA6eoyemEIMhonHOQR-4" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="TQnA6eoyemEIMhonHOQR-7" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="330" y="440" as="sourcePoint" />
+            <mxPoint x="400" y="490" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="TQnA6eoyemEIMhonHOQR-27" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="User Storage(Soruyu soran kullanıcıya ait kişisel bilgiler)" vertex="1">
+          <mxGeometry height="60" width="120" x="670" y="940" as="geometry" />
+        </mxCell>
+        <mxCell id="TQnA6eoyemEIMhonHOQR-28" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="User loq(Postgresql)" vertex="1">
+          <mxGeometry height="60" width="120" x="850" y="940" as="geometry" />
+        </mxCell>
+        <mxCell id="TQnA6eoyemEIMhonHOQR-33" edge="1" parent="1" source="TQnA6eoyemEIMhonHOQR-31" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="TQnA6eoyemEIMhonHOQR-27">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="TQnA6eoyemEIMhonHOQR-31" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Kullanıcı Bilgi Tespit Ajanı" vertex="1">
+          <mxGeometry height="60" width="120" x="670" y="810" as="geometry" />
+        </mxCell>
+        <mxCell id="TQnA6eoyemEIMhonHOQR-36" edge="1" parent="1" source="TQnA6eoyemEIMhonHOQR-34" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="TQnA6eoyemEIMhonHOQR-16">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="TQnA6eoyemEIMhonHOQR-34" parent="1" style="rhombus;whiteSpace=wrap;html=1;" value="Sql Çalıştıran Tool" vertex="1">
+          <mxGeometry height="130" width="180" x="580" y="490" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
