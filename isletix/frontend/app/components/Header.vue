@@ -4,13 +4,6 @@
       <button class="mobile-menu-btn" @click="$emit('toggle-sidebar')">
         <i class="pi pi-bars"></i>
       </button>
-      <div class="breadcrumb">
-        <NuxtLink to="/" class="breadcrumb-link">Ana Sayfa</NuxtLink>
-        <template v-if="currentPage">
-          <i class="pi pi-angle-right"></i>
-          <span class="current">{{ currentPage }}</span>
-        </template>
-      </div>
       <h1 class="page-title">{{ pageTitle }}</h1>
     </div>
     <div class="header-right">
@@ -18,11 +11,31 @@
         <i class="pi pi-search"></i>
         <input v-model="searchQuery" type="text" placeholder="Ara..." @keyup.enter="handleSearch" />
       </div>
+      
+      <div class="user-profile" @click="toggleUserMenu" ref="userProfileRef">
+        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User" />
+        <Transition name="fade">
+          <div v-if="!collapsed" class="user-info">
+            <span class="user-name">Ahmet Yılmaz</span>
+            <span class="user-role">Yönetici</span>
+          </div>
+        </Transition>
+        <Transition name="fade">
+          <i v-if="!collapsed" class="pi pi-chevron-up" :class="{ 'rotate-180': !userMenuVisible }"></i>
+        </Transition>
+      </div>
+      <Menu ref="userMenu" :model="userMenuItems" :popup="true" class="user-menu" />
+      
     </div>
   </header>
 </template>
 
 <script setup lang="ts">
+
+const props = defineProps<{
+  collapsed: boolean
+}>()
+
 defineEmits<{
   'toggle-sidebar': []
 }>()
@@ -46,6 +59,49 @@ const pageTitle = computed(() => {
   return titles[route.path] || 'Dashboard'
 })
 
+
+const toggleUserMenu = (event: Event) => {
+  userMenu.value.toggle(event)
+  userMenuVisible.value = !userMenuVisible.value
+}
+
+
+
+// User Menu
+const userMenu = ref()
+const userProfileRef = ref()
+const userMenuVisible = ref(false)
+const router = useRouter()
+
+const userMenuItems = ref([
+  {
+    label: 'Profil',
+    icon: 'pi pi-user',
+    command: () => {
+      router.push('/profile')
+    }
+  },
+  {
+    label: 'Hesap Ayarları',
+    icon: 'pi pi-cog',
+    command: () => {
+      router.push('/settings')
+    }
+  },
+  {
+    separator: true
+  },
+  {
+    label: 'Çıkış Yap',
+    icon: 'pi pi-sign-out',
+    command: () => {
+      // Çıkış işlemi burada yapılacak
+      console.log('Çıkış yapılıyor...')
+      router.push('/login')
+    }
+  }
+])
+
 const currentPage = computed(() => {
   if (route.path === '/') return null
   return pageTitle.value
@@ -60,6 +116,60 @@ const handleSearch = () => {
 </script>
 
 <style scoped>
+
+
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  padding: 0.75rem;
+  border-radius: 12px;
+  transition: background-color 0.2s ease;
+  cursor: pointer;
+  position: relative;
+}
+
+.user-profile i.pi-chevron-up {
+  margin-left: auto;
+  font-size: 0.75rem;
+  color: #94a3b8;
+  transition: transform 0.3s ease;
+}
+
+.user-profile i.pi-chevron-up.rotate-180 {
+  transform: rotate(180deg);
+}
+
+.user-profile:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.sidebar.collapsed .user-profile {
+  justify-content: center;
+  padding: 0.5rem;
+}
+
+.user-profile img {
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.2s ease;
+}
+
+.user-profile:hover img {
+  border-color: rgba(59, 130, 246, 0.5);
+  transform: scale(1.05);
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
 .main-header {
   display: flex;
   justify-content: space-between;

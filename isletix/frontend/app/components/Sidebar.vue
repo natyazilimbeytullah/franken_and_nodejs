@@ -25,8 +25,8 @@
         <Transition name="fade">
           <i v-if="!collapsed" class="pi pi-chevron-up" :class="{ 'rotate-180': !userMenuVisible }"></i>
         </Transition>
-      </div>-->
-      <Menu ref="userMenu" :model="userMenuItems" :popup="true" class="user-menu" />
+      </div>
+      <Menu ref="userMenu" :model="userMenuItems" :popup="true" class="user-menu" />-->
     </div>
     <!-- Navigation -->
     <nav class="sidebar-nav">
@@ -100,6 +100,7 @@ const route = useRoute()
 const menuSections = ref<MenuSection[]>([
   {
     title: 'STOK YÖNETİMİ',
+    icon: 'pi pi-box',
     expanded: true,
     items: [
       { label: 'Stok Yönetimi', icon: 'pi pi-box', to: '/stock' },
