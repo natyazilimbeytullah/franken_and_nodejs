@@ -10,14 +10,11 @@
           <span v-if="!collapsed" class="logo-text">ERP</span>
         </Transition>
       </div>
-      <!-- <button class="toggle-btn" @click="$emit('toggle')" :title="collapsed ? 'Menüyü Aç' : 'Menüyü Kapat'">
-        <i :class="collapsed ? 'pi pi-chevron-right' : 'pi pi-chevron-left'"></i>
-      </button> -->
     </div>
     
     <!-- Footer -->
     <div class="sidebar-footer">
-      <div class="user-profile" @click="toggleUserMenu" ref="userProfileRef">
+      <!--<div class="user-profile" @click="toggleUserMenu" ref="userProfileRef">
         <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User" />
         <Transition name="fade">
           <div v-if="!collapsed" class="user-info">
@@ -28,16 +25,27 @@
         <Transition name="fade">
           <i v-if="!collapsed" class="pi pi-chevron-up" :class="{ 'rotate-180': !userMenuVisible }"></i>
         </Transition>
-      </div>
+      </div>-->
       <Menu ref="userMenu" :model="userMenuItems" :popup="true" class="user-menu" />
     </div>
     <!-- Navigation -->
     <nav class="sidebar-nav">
-      <div v-for="section in menuSections" :key="section.title" class="nav-section">
-        <Transition name="fade">
-          <span v-if="!collapsed" class="nav-section-title">{{ section.title }}</span>
-        </Transition>
-        <ul class="nav-list">
+      <div v-for="(section, index) in menuSections" :key="section.title" class="nav-section">
+        <div 
+          v-if="!collapsed" 
+          class="nav-section-header" 
+          @click="toggleSection(index)"
+        >
+          <div class="nav-section-title-wrapper">
+            <i :class="section.icon" class="section-icon"></i>
+            <span class="nav-section-title">{{ section.title }}</span>
+          </div>
+          <i 
+            class="pi pi-chevron-down section-chevron" 
+            :class="{ 'rotated': !section.expanded }"
+          ></i>
+        </div>
+        <ul class="nav-list" v-show="collapsed || section.expanded">
           <li 
             v-for="item in section.items" 
             :key="item.to" 
@@ -74,10 +82,12 @@ interface MenuItem {
 
 interface MenuSection {
   title: string
+  icon: string
   items: MenuItem[]
+  expanded: boolean
 }
 
-defineProps<{
+const props = defineProps<{
   collapsed: boolean
 }>()
 
@@ -87,19 +97,20 @@ defineEmits<{
 
 const route = useRoute()
 
-const menuSections: MenuSection[] = [
+const menuSections = ref<MenuSection[]>([
   {
-    title: 'Ana Menü',
+    title: 'STOK YÖNETİMİ',
+    expanded: true,
     items: [
+      { label: 'Stok Yönetimi', icon: 'pi pi-box', to: '/stock' },
       { label: 'Dashboard', icon: 'pi pi-home', to: '/' },
       { label: 'Siparişler', icon: 'pi pi-shopping-cart', to: '/customers', badge: 12 },
-      { label: 'Stok Yönetimi', icon: 'pi pi-box', to: '/stock' },
       { label: 'Müşteriler', icon: 'pi pi-users', to: '/customers' },
-      { label: 'Login', icon: 'pi pi-sign-in', to: '/login' },
     ]
   },
-  {
+  /*{
     title: 'Finans',
+    expanded: false,
     items: [
       { label: 'Gelir/Gider', icon: 'pi pi-wallet', to: '/customers' },
       { label: 'Faturalar', icon: 'pi pi-file', to: '/customers' },
@@ -108,6 +119,7 @@ const menuSections: MenuSection[] = [
   },
   {
     title: 'İK & Yönetim',
+    expanded: false,
     items: [
       { label: 'Personel', icon: 'pi pi-id-card', to: '/customers' },
       { label: 'Tedarikçiler', icon: 'pi pi-truck', to: '/customers' }
@@ -115,11 +127,20 @@ const menuSections: MenuSection[] = [
   },
   {
     title: 'Ayarlar',
+    expanded: false,
     items: [
       { label: 'Ayarlar', icon: 'pi pi-cog', to: '/settings' }
     ]
+  }*/
+])
+
+const toggleSection = (index: number) => {
+  if (props.collapsed) return
+  const section = menuSections.value[index]
+  if (section) {
+    section.expanded = !section.expanded
   }
-]
+}
 
 const isActive = (path: string) => {
   if (path === '/') {
@@ -316,17 +337,58 @@ const toggleUserMenu = (event: Event) => {
   margin-bottom: 1.5rem;
 }
 
+
+.nav-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  margin-bottom: 0.75rem;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.nav-section-header:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.nav-section-title-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.section-icon {
+  font-size: 1.125rem;
+  color: #94a3b8;
+  min-width: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .nav-section-title {
-  font-size: 0.7rem;
+  font-size: 0.8rem;
   font-weight: 600;
-  color: #64748b;
+  color: #94a3b8;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  padding: 0 1.25rem;
-  margin-bottom: 0.5rem;
-  display: block;
   white-space: nowrap;
 }
+
+.section-chevron {
+  font-size: 0.875rem;
+  color: #64748b;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  margin-left: 0.5rem;
+}
+
+.section-chevron.rotated {
+  transform: rotate(-90deg);
+}
+
 
 .nav-list {
   list-style: none;
@@ -398,7 +460,7 @@ const toggleUserMenu = (event: Event) => {
 
 /* Footer */
 .sidebar-footer {
-  padding: 1.25rem 1rem;
+  /*padding: 1.25rem 1rem;*/
   border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 
