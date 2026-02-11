@@ -99,40 +99,68 @@ const route = useRoute()
 
 const menuSections = ref<MenuSection[]>([
   {
-    title: 'STOK YÖNETİMİ',
+    title: 'Ürün Yönetim',
     icon: 'pi pi-box',
     expanded: true,
     items: [
-      { label: 'Stok Yönetimi', icon: 'pi pi-box', to: '/stock' },
-      { label: 'Dashboard', icon: 'pi pi-home', to: '/' },
-      { label: 'Siparişler', icon: 'pi pi-shopping-cart', to: '/customers', badge: 12 },
-      { label: 'Müşteriler', icon: 'pi pi-users', to: '/customers' },
-    ]
-  },
-  /*{
-    title: 'Finans',
-    expanded: false,
-    items: [
-      { label: 'Gelir/Gider', icon: 'pi pi-wallet', to: '/customers' },
-      { label: 'Faturalar', icon: 'pi pi-file', to: '/customers' },
-      { label: 'Raporlar', icon: 'pi pi-chart-bar', to: '/customers' }
+      { label: 'Ürün Malzeme Kartı', icon: 'pi pi-box', to: '/product-material-card' },
+      { label: 'Ürün Kategori Kartı', icon: 'pi pi-tags', to: '/product-category-card' }
     ]
   },
   {
-    title: 'İK & Yönetim',
-    expanded: false,
+    title: 'Satış Yönetim',
+    icon: 'pi pi-shopping-cart',
+    expanded: true,
     items: [
-      { label: 'Personel', icon: 'pi pi-id-card', to: '/customers' },
-      { label: 'Tedarikçiler', icon: 'pi pi-truck', to: '/customers' }
+      { label: 'Cari Hesap Tanıtım Kartı', icon: 'pi pi-user', to: '/customer-account-card' },
+      { label: 'Cari Grupları', icon: 'pi pi-users', to: '/customer-groups' }
     ]
   },
   {
-    title: 'Ayarlar',
+    title: 'Satınalma Yönetim',
+    icon: 'pi pi-shopping-bag',
     expanded: false,
     items: [
-      { label: 'Ayarlar', icon: 'pi pi-cog', to: '/settings' }
+      { label: 'Cari Hesap Tanıtım Kartı', icon: 'pi pi-user', to: '/customer-account-card' },
+      { label: 'Cari Grupları', icon: 'pi pi-users', to: '/customer-groups' }
     ]
-  }*/
+  },
+  {
+    title: 'Gelir Gider Yönetim',
+    icon: 'pi pi-chart-bar',
+    expanded: false,
+    items: [
+      { label: 'Masraf/Hizmet Kart Tanımı ', icon: 'pi pi-file', to: '/expense-service-card' },
+      { label: 'Masraf/Hizmet Grup Tanımı', icon: 'pi pi-folder', to: '/expense-service-group' }
+    ]
+  },
+  {
+    title: 'Finansal Yönetim',
+    icon: 'pi pi-wallet',
+    expanded: false,
+    items: [
+      { label: 'Banka Tanıtım Kartı', icon: 'pi pi-building', to: '/bank-card' },
+      { label: 'Kasa Tanıtım Kartı', icon: 'pi pi-money-bill', to: '/cash-card' }
+    ]
+  },
+  {
+    title: 'Tanımlar',
+    icon: 'pi pi-cog',
+    expanded: false,
+    items: [
+      { label: 'Depo Tanıtım Kartı', icon: 'pi pi-home', to: '/warehouse-card' },
+      { label: 'Kullanıcı Tanıtım Kartı', icon: 'pi pi-user-plus', to: '/user-card' }
+    ]
+  },
+  {
+    title: 'Dijital Yönetim',
+    icon: 'pi pi-globe',
+    expanded: false,
+    items: [
+      { label: 'E-Tahsilat Modülü', icon: 'pi pi-credit-card', to: '/e-collection-module' },
+      { label: 'E-Plasiyer Modülü', icon: 'pi pi-tablet', to: '/e-sales-rep-module' }
+    ]
+  },
 ])
 
 const toggleSection = (index: number) => {
@@ -235,7 +263,7 @@ const toggleUserMenu = (event: Event) => {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1.5rem 1rem;
+  padding: 1.0rem 1rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   position: relative;
   min-height: 80px;
@@ -335,7 +363,7 @@ const toggleUserMenu = (event: Event) => {
 }
 
 .nav-section {
-  margin-bottom: 1.5rem;
+  /*margin-bottom: 1.5rem;*/
 }
 
 

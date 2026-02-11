@@ -7,7 +7,7 @@
     />
     
     <div class="layout-content">
-      <Header @toggle-sidebar="toggleSidebar" />
+      <Header @toggle-sidebar="toggleSidebar" :collapsed="sidebarCollapsed" />
       
       <main class="main-content">
         <slot />

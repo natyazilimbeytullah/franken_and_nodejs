@@ -15,11 +15,16 @@ export interface Product {
   updatedAt: string
 }
 
+export interface ProductsResponse {
+  data: Product[]
+  totalRecords: number
+}
+
 /**
  * Ürün yönetimi için composable
  * Lazy loading, filtreleme, sıralama ve CRUD işlemleri
  */
-export const useProducts = () => {
+export const useProducts = (url: string) => {
   // State
   const products = ref<Product[]>([])
   const loading = ref(false)
@@ -97,99 +102,34 @@ export const useProducts = () => {
     { icon: 'pi pi-th-large', value: 'grid' }
   ]
 
-  // Mock data generator
-  const generateMockProducts = (): Product[] => {
-    const categories = categoryOptions
-    const brands = brandOptions
-    const statuses = ['Aktif', 'Pasif', 'Taslak']
-    const products: Product[] = []
-
-    for (let i = 1; i <= 50; i++) {
-      const category = categories[Math.floor(Math.random() * categories.length)] || 'Elektronik'
-      const brand = brands[Math.floor(Math.random() * brands.length)] || 'Apple'
-      const status = statuses[Math.floor(Math.random() * statuses.length)] || 'Aktif'
-      const stock = Math.floor(Math.random() * 500)
-      const price = Math.floor(Math.random() * 10000) + 100
-
-      products.push({
-        id: i,
-        name: `${brand} ${category} Ürün ${i}`,
-        sku: `SKU-${String(i).padStart(5, '0')}`,
-        category,
-        brand,
-        price,
-        stock,
-        status,
-        image: `https://picsum.photos/seed/${i}/200/200`,
-        description: `${brand} markasının kaliteli ${category} kategorisinde yer alan ürün. Yüksek performans ve dayanıklılık.`,
-        createdAt: new Date(2024, Math.floor(Math.random() * 12), Math.floor(Math.random() * 28) + 1).toLocaleDateString('tr-TR'),
-        updatedAt: new Date().toLocaleDateString('tr-TR')
-      })
-    }
-
-    return products
-  }
-
-  // API'den veri çekme (şimdilik mock data)
+  // API'den veri çekme
   const loadProducts = async () => {
     loading.value = true
     
     try {
-      // Simulate API delay
-      await new Promise(resolve => setTimeout(resolve, 500))
-      
-      let allProducts = generateMockProducts()
-      
-      // Apply filters
-      if (filters.value.search) {
-        const searchLower = filters.value.search.toLowerCase()
-        allProducts = allProducts.filter(p => 
-          p.name.toLowerCase().includes(searchLower) ||
-          p.sku.toLowerCase().includes(searchLower) ||
-          p.brand.toLowerCase().includes(searchLower)
-        )
+      // API query parametrelerini hazırla
+      const queryParams: any = {
+        page: lazyParams.value.page,
+        rows: lazyParams.value.rows,
+        sortField: lazyParams.value.sortField,
+        sortOrder: lazyParams.value.sortOrder
       }
       
-      if (filters.value.status) {
-        allProducts = allProducts.filter(p => p.status === filters.value.status)
-      }
+      // Filtreleri ekle
+      if (filters.value.search) queryParams.search = filters.value.search
+      if (filters.value.status) queryParams.status = filters.value.status
+      if (filters.value.category) queryParams.category = filters.value.category
+      if (filters.value.brand) queryParams.brand = filters.value.brand
+      if (filters.value.stockStatus) queryParams.stockStatus = filters.value.stockStatus
       
-      if (filters.value.category) {
-        allProducts = allProducts.filter(p => p.category === filters.value.category)
-      }
+      // API'den veri çek
+      const response = await $fetch<ProductsResponse>(url, {
+        query: queryParams
+      })
       
-      if (filters.value.brand) {
-        allProducts = allProducts.filter(p => p.brand === filters.value.brand)
-      }
-      
-      if (filters.value.stockStatus) {
-        allProducts = allProducts.filter(p => {
-          if (filters.value.stockStatus === 'in_stock') return p.stock > 50
-          if (filters.value.stockStatus === 'low_stock') return p.stock > 0 && p.stock <= 50
-          if (filters.value.stockStatus === 'out_of_stock') return p.stock === 0
-          return true
-        })
-      }
-      
-      // Apply sorting
-      if (lazyParams.value.sortField) {
-        allProducts.sort((a, b) => {
-          const field = lazyParams.value.sortField as keyof Product
-          const aVal = a[field]
-          const bVal = b[field]
-          
-          if (aVal < bVal) return -1 * lazyParams.value.sortOrder
-          if (aVal > bVal) return 1 * lazyParams.value.sortOrder
-          return 0
-        })
-      }
-      
-      totalRecords.value = allProducts.length
-      
-      // Apply pagination
-      const start = lazyParams.value.first
-      const end = start + lazyParams.value.rows
-      products.value = allProducts.slice(start, end)
+      // Response'u state'e ata
+      products.value = response?.data || []
+      totalRecords.value = response?.totalRecords || 0
       
     } catch (error) {
       console.error('Ürünler yüklenirken hata oluştu:', error)

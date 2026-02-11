@@ -2,7 +2,7 @@
   <div class="flex flex-column gap-3 page-container">
     <!-- Page Header -->
     <div class="flex flex-wrap justify-content-between align-items-center gap-2">
-      <p class="text-color-secondary m-0 hidden md:block">Tüm ürünlerinizi buradan yönetin</p>
+      <p class="text-color-secondary m-0 hidden md:block"></p>
       <div class="flex gap-2 w-full md:w-auto justify-content-end">
         <Button :label="isMobile ? '' : 'Dışa Aktar'" icon="pi pi-download" outlined :class="{'p-button-sm': isMobile}" />
         <NuxtLink to="/stock/add">
@@ -67,8 +67,8 @@
             />
           </div>
           <div class="col-12 lg:col-2 flex align-items-end gap-2">
-            <Button :label="isMobile ? '' : 'Filtrele'" icon="pi pi-filter" @click="applyFilters" class="flex-1" />
-            <Button :label="isMobile ? '' : 'Temizle'" icon="pi pi-times" outlined severity="secondary" @click="clearFilters" :class="{'flex-1': !isMobile, 'hidden': isMobile}" />
+            <Button :label="isMobile ? '' : ''" icon="pi pi-filter" @click="applyFilters" class="flex-1" />
+            <Button :label="isMobile ? '' : ''" icon="pi pi-times" outlined severity="secondary" @click="clearFilters" :class="{'text-white bg-red-500 flex-1': !isMobile, 'hidden': isMobile}" />
           </div>
         </div>
       </template>
@@ -76,19 +76,6 @@
 
     <!-- Data Table Card -->
     <Card>
-      <template #title>
-        <div class="flex flex-wrap justify-content-between align-items-center gap-2">
-          <div class="flex align-items-center gap-3">
-            <span class="text-lg font-semibold">Ürün Listesi</span>
-            <Badge :value="`${totalRecords} ürün`" severity="info" />
-          </div>
-          <SelectButton v-model="viewMode" :options="viewModes" optionLabel="icon" optionValue="value">
-            <template #option="slotProps">
-              <i :class="slotProps.option.icon"></i>
-            </template>
-          </SelectButton>
-        </div>
-      </template>
       <template #content>
         <DataTable 
           v-model:selection="selectedProducts"
@@ -145,9 +132,6 @@
                 </div>
               </div>
             </template>
-            <template #filter="{ filterModel, filterCallback }">
-              <InputText v-model="filterModel.value" @input="filterCallback()" placeholder="Ürün adına göre ara" />
-            </template>
           </Column>
 
           <Column v-if="isDesktop" field="category" header="Kategori" sortable>
@@ -157,29 +141,11 @@
                 <span>{{ data.category }}</span>
               </div>
             </template>
-            <template #filter="{ filterModel, filterCallback }">
-              <Select 
-                v-model="filterModel.value" 
-                :options="categoryOptions" 
-                placeholder="Kategori seç"
-                @change="filterCallback()"
-                showClear
-              />
-            </template>
           </Column>
 
           <Column v-if="!isMobile" field="brand" header="Marka" sortable>
             <template #body="{ data }">
               <span class="brand-cell">{{ data.brand }}</span>
-            </template>
-            <template #filter="{ filterModel, filterCallback }">
-              <Select 
-                v-model="filterModel.value" 
-                :options="brandOptions" 
-                placeholder="Marka seç"
-                @change="filterCallback()"
-                showClear
-              />
             </template>
           </Column>
 
@@ -206,17 +172,6 @@
                 :value="data.status" 
                 :severity="getStatusSeverity(data.status)"
                 :icon="getStatusIcon(data.status)"
-              />
-            </template>
-            <template #filter="{ filterModel, filterCallback }">
-              <Select 
-                v-model="filterModel.value" 
-                :options="statusOptions" 
-                optionLabel="label"
-                optionValue="value"
-                placeholder="Durum seç"
-                @change="filterCallback()"
-                showClear
               />
             </template>
           </Column>
@@ -348,5 +303,5 @@ const {
   editProduct,
   confirmDelete,
   deleteProduct
-} = useProducts()
+} = useProducts("/api/products")
 </script>

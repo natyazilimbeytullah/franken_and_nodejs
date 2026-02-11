@@ -7,17 +7,11 @@
       <h1 class="page-title">{{ pageTitle }}</h1>
     </div>
     <div class="header-right">
-      <div class="search-box">
-        <i class="pi pi-search"></i>
-        <input v-model="searchQuery" type="text" placeholder="Ara..." @keyup.enter="handleSearch" />
-      </div>
-      
       <div class="user-profile" @click="toggleUserMenu" ref="userProfileRef">
         <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User" />
         <Transition name="fade">
           <div v-if="!collapsed" class="user-info">
             <span class="user-name">Ahmet Yılmaz</span>
-            <span class="user-role">Yönetici</span>
           </div>
         </Transition>
         <Transition name="fade">
