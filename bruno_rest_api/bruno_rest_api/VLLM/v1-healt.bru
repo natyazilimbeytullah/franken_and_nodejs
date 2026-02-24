@@ -1,0 +1,20 @@
+meta {
+  name: /v1/healt
+  type: http
+  seq: 4
+}
+
+get {
+  url: https://{{url}}/api/health
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

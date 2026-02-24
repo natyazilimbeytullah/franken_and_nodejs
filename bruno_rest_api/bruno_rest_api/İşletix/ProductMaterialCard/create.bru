@@ -1,0 +1,39 @@
+meta {
+  name: create
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://localhost:8585/api/product-material-cards/1
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+      "product_name": "M8x40 Cıvata 22",
+      "product_code": "CIV-M8X40",
+      "short_name": "M8 Cıvata",
+      "product_type": "stok",
+      "card_type": "stoklu",
+      "category_id": "1",
+      "brand_id": "1",
+      "unit_id": "1",
+      "base_uom_id": "1",
+      "purchase_uom_id": "1",
+      "sales_uom_id": "1",
+      "track_inventory": true,
+      "track_lot": false,
+      "track_serial": false,
+      "vat_rate": 20.00,
+      "is_vat_exempt": false,
+      "description": "M8x40mm altı köşe cıvata, paslanmaz çelik",
+      "active": true
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

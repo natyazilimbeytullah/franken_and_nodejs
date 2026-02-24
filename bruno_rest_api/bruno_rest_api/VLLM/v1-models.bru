@@ -1,0 +1,20 @@
+meta {
+  name: /v1/models
+  type: http
+  seq: 1
+}
+
+get {
+  url: https://{{url}}/v1/models
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

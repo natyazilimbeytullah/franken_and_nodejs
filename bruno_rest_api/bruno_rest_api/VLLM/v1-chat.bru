@@ -1,0 +1,30 @@
+meta {
+  name: /v1/chat
+  type: http
+  seq: 3
+}
+
+post {
+  url: https://{{url}}/v1/chat/completions
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "model": "openai/gpt-oss-20b",
+    "messages": [
+        {"role": "system", "content": "Sen yardımcı bir asistansın."},
+        {"role": "user", "content": "Merhaba, GPT-OSS! Senin özelliklerin neler?"}
+    ]
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
